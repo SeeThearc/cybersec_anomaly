@@ -174,7 +174,7 @@ def get_alert(db: Session, alert_id: int) -> models.Alert | None:
 
 
 def get_alerts(db: Session, skip: int = 0, limit: int = 100) -> list[models.Alert]:
-    stmt = select(models.Alert).offset(skip).limit(limit)
+    stmt = select(models.Alert).order_by(models.Alert.created_at.desc()).offset(skip).limit(limit)
     return list(db.scalars(stmt).all())
 
 

@@ -53,9 +53,26 @@ def predict_event(request_data: schemas.PredictionRequest, request: Request, db:
     history = []
     if user_id:
         db_events = crud.get_events_by_user(db, user_id)
-        # Sort by timestamp and get last 9
         db_events = sorted(db_events, key=lambda x: x.timestamp)[-9:]
-        history = [{"action": e.action, "timestamp": e.timestamp} for e in db_events]
+        history = [
+            {
+                "event_id": e.event_id,
+                "user_id": e.user_id,
+                "device_id": e.device_id,
+                "timestamp": e.timestamp.isoformat() if e.timestamp else None,
+                "action": e.action,
+                "resource": e.resource,
+                "status": e.status,
+                "bytes_transferred": e.bytes_transferred,
+                "ip_address": e.ip_address,
+                "location": e.location,
+                "session_duration": e.session_duration,
+                "failed_attempts": e.failed_attempts,
+                "login_status": e.login_status,
+                "country": e.country,
+                "authentication_method": e.authentication_method
+            } for e in db_events
+        ]
         
     try:
         result = predictor.predict_event(event, history)
@@ -98,58 +115,60 @@ def get_alerts(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
 
 @router.get("/statistics", response_model=schemas.StatisticsResponse)
 def get_statistics(db: Session = Depends(get_db)):
-    total_users = db.query(func.count(models.User.id)).scalar()
-    total_events = db.query(func.count(models.Event.id)).scalar()
-    critical_alerts = db.query(func.count(models.Alert.id)).filter(models.Alert.risk_score >= 80).scalar()
+    total_users = db.query(func.count(models.User.id)).scalar() or 0
+    total_events = db.query(func.count(models.Event.id)).scalar() or 0
+    critical_alerts = db.query(func.count(models.Alert.id)).filter(models.Alert.risk_score >= 80).scalar() or 0
     
-    # Mocking aggregated analytics for speed
     avg_risk = db.query(func.avg(models.Alert.risk_score)).scalar() or 0.0
     
+    # Calculate high risk users (users with at least one critical alert)
+    high_risk_users = db.query(func.count(models.User.id)).join(models.Alert).filter(models.Alert.risk_score >= 80).scalar() or 0
+    
+    # Aggregate attack counts
+    attack_counts_raw = db.query(models.Alert.attack_type, func.count(models.Alert.id)).group_by(models.Alert.attack_type).all()
+    attack_counts = {attack: count for attack, count in attack_counts_raw if attack != "Normal"}
+    
     return {
-        "total_users": total_users or 0,
-        "total_events": total_events or 0,
-        "attack_counts": {"BruteForce": 12, "CredentialStuffing": 8, "LateralMovement": 4},
+        "total_users": total_users,
+        "total_events": total_events,
+        "attack_counts": attack_counts,
         "average_risk": round(avg_risk, 2),
-        "high_risk_users": 5,
-        "critical_alerts": critical_alerts or 0
+        "high_risk_users": high_risk_users,
+        "critical_alerts": critical_alerts
     }
 
 @router.get("/analytics", response_model=schemas.AnalyticsResponse)
 def get_analytics(db: Session = Depends(get_db)):
     # Returns aggregation data for the frontend charts
+    # Attack Distribution
+    attack_counts_raw = db.query(models.Alert.attack_type, func.count(models.Alert.id)).group_by(models.Alert.attack_type).all()
+    attack_distribution = [{"name": attack if attack != "Normal" else "Anomaly", "value": count} for attack, count in attack_counts_raw if attack != "Normal"]
+    
+    # Department Distribution
+    dept_counts = db.query(models.User.department, func.count(models.User.id)).group_by(models.User.department).all()
+    department_distribution = [{"name": dept, "value": count} for dept, count in dept_counts]
+
+    # Risk Trend (Last 5 Alerts)
+    recent_alerts = db.query(models.Alert).order_by(models.Alert.created_at.desc()).limit(5).all()
+    risk_trend = [{"time": a.created_at.strftime("%H:%M") if a.created_at else "Now", "risk": a.risk_score} for a in reversed(recent_alerts)]
+
+    # Monthly Events (Mocked for current timeframe)
+    total_events = db.query(func.count(models.Event.id)).scalar() or 0
+    monthly_events = [{"name": "Current", "events": total_events}]
+
+    # Top Resources
+    resource_counts = db.query(models.Event.resource, func.count(models.Event.id)).group_by(models.Event.resource).order_by(func.count(models.Event.id).desc()).limit(5).all()
+    top_resources = [{"name": res, "hits": count} for res, count in resource_counts]
+
+    top_attack_types = [{"name": a["name"], "count": a["value"]} for a in attack_distribution]
+
     return {
-        "attack_distribution": [
-            {"name": "BruteForce", "value": 40},
-            {"name": "CredentialStuffing", "value": 25},
-            {"name": "LateralMovement", "value": 15},
-            {"name": "InsiderDrift", "value": 20},
-        ],
-        "department_distribution": [
-            {"name": "Engineering", "value": 120},
-            {"name": "Finance", "value": 30},
-            {"name": "HR", "value": 15},
-            {"name": "Sales", "value": 45},
-        ],
-        "risk_trend": [
-            {"time": "08:00", "risk": 20},
-            {"time": "09:00", "risk": 45},
-            {"time": "10:00", "risk": 85},
-            {"time": "11:00", "risk": 30},
-        ],
-        "monthly_events": [
-            {"name": "Jan", "events": 1200},
-            {"name": "Feb", "events": 2100},
-            {"name": "Mar", "events": 800},
-        ],
-        "top_resources": [
-            {"name": "Payroll DB", "hits": 450},
-            {"name": "GitHub Repo", "hits": 320},
-            {"name": "Admin Console", "hits": 150},
-        ],
-        "top_attack_types": [
-            {"name": "BruteForce", "count": 142},
-            {"name": "CredentialStuffing", "count": 89},
-        ],
+        "attack_distribution": attack_distribution if attack_distribution else [{"name": "None", "value": 1}],
+        "department_distribution": department_distribution if department_distribution else [{"name": "None", "value": 1}],
+        "risk_trend": risk_trend if risk_trend else [{"time": "Now", "risk": 0}],
+        "monthly_events": monthly_events,
+        "top_resources": top_resources if top_resources else [{"name": "None", "hits": 0}],
+        "top_attack_types": top_attack_types if top_attack_types else [{"name": "None", "count": 0}],
         "roc_curve": [
             {"fpr": 0.0, "tpr": 0.0},
             {"fpr": 0.01, "tpr": 0.85},

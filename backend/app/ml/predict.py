@@ -93,13 +93,6 @@ class PredictionPipeline:
         # 1. Prepare Event Dataframe
         df_event = pd.DataFrame([event])
         
-        # 2. Extract Base Features
-        X_event, _ = self.fe.transform(df_event)
-        
-        # 3. Compute Behavior Score
-        b_score = self.behavior_profiler.predict_behavior_score(X_event)
-        
-        # 4. Compute Sequence Score
         # Build the historical sequence for this user ending with this event
         history_df = pd.DataFrame(user_history)
         if len(history_df) > 0:
@@ -107,37 +100,38 @@ class PredictionPipeline:
         else:
             df_seq = df_event
             
-        # We need a fixed length sequence of length 10
+        # 2. Extract Base Features using the FULL context (so Pandas shift() and rolling() work)
+        X_all, _ = self.fe.transform(df_seq)
+        
+        # We only care about the features for the current event (the last row)
+        X_event = X_all[-1:]
+        
+        # 3. Compute Behavior Score
+        b_score = self.behavior_profiler.predict_behavior_score(X_event)
+        
+        # 4. Compute Sequence Score
         seq_length = 10
-        # Create sequence logic similar to train.py but for a single user
         tokens = [self.fe.action_tokenizer.get(a, 0) for a in df_seq["action"]]
         
-        # Pad with 0s if we don't have enough history
         if len(tokens) < seq_length:
             pad = [0] * (seq_length - len(tokens))
             tokens = pad + tokens
             
-        # Keep only the last seq_length tokens
         tokens = tokens[-seq_length:]
         X_seq = np.array([tokens], dtype=int)
         
-        # Get sequence score
         s_score = self.sequence_profiler.predict_sequence_score(X_seq)
         
         # 5. Attack Classification
         X_combined = self.classifier._prepare_features(X_event, b_score, s_score)
-        
         predicted_class_idx = self.classifier.model.predict(X_combined)[0]
-        
-        # XGBoost outputs integer classes, so we decode it back to the string label
         prediction = self.fe.label_encoder.inverse_transform([predicted_class_idx])[0]
         
         probabilities = self.classifier.model.predict_proba(X_combined)[0]
         confidence = float(probabilities[predicted_class_idx])
         
         # 6. Risk Engine
-        # The Risk Engine computes a final 0-100 score based on ML outputs
-        historical_risk = 0.0 # Could be fetched from user profile in DB
+        historical_risk = 0.0 
         critical_resource = event.get("resource") in ["Payroll", "Admin Console", "Database", "Security Console"]
         
         risk_score = calculate_risk_score(
@@ -151,9 +145,7 @@ class PredictionPipeline:
         actions = get_recommended_actions(risk_level, str(prediction))
         
         # 7. Explainability
-        # Only explain if it's an attack or high risk
         if prediction != "Normal" or risk_level in ["HIGH", "CRITICAL"]:
-            # Note: We pass the target class index to explain WHY it picked this attack
             explain_result = self.explainer.explain_prediction(
                 X_instance=X_combined[0],
                 predicted_class_index=predicted_class_idx

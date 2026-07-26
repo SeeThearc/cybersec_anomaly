@@ -37,10 +37,12 @@ class CopilotService:
                 return "⚠️ **Error:** You have an API key, but the SDK is not installed. Please run `pip install google-generativeai` in the backend folder."
                 
             prompt = (
-                "You are an expert AI Security Analyst inside a Security Operations Center (SOC). "
+                "You are an AI Security Analyst inside a Security Operations Center (SOC). "
                 "You are assisting a human analyst. Answer their question based strictly on the provided telemetry context. "
-                "Keep your response concise, professional, and highly actionable. Format with Markdown. "
-                "Do not make up data outside the context.\n\n"
+                "Provide a crisp, direct, and conversational answer. Summarize the core issue (who, what, and why it was flagged) "
+                "in a few sentences. Do not generate a massive report. "
+                "End by briefly suggesting that the user can ask for a deeper anomaly breakdown or mitigation steps if they need more details.\n\n"
+                "Format beautifully with Markdown. Do not make up data outside the context.\n\n"
                 f"--- TELEMETRY CONTEXT ---\n{json.dumps(context, indent=2)}\n\n"
                 f"Analyst Question: {question}"
             )
@@ -49,7 +51,7 @@ class CopilotService:
                 if HAS_NEW_SDK:
                     client = genai.Client(api_key=api_key)
                     response = client.models.generate_content(
-                        model='gemini-2.5-flash',
+                        model='gemini-2.0-flash',
                         contents=prompt,
                     )
                     return response.text

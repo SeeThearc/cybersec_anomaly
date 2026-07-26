@@ -7,7 +7,7 @@ from app import crud, schemas
 from app.seed import seed_sample_data
 
 
-def run_tests() -> None:
+def test_database_crud() -> None:
     print("Checking database connection...")
     if not check_db_connection():
         raise RuntimeError(
@@ -63,4 +63,4 @@ def run_tests() -> None:
 
 
 if __name__ == "__main__":
-    run_tests()
+    test_database_crud()

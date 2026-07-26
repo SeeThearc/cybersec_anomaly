@@ -23,8 +23,8 @@
 - [x] Milestone 14 - React Dashboard
 - [x] Milestone 15 - Analytics Dashboard
 - [x] Milestone 16 - AI Security Copilot
-- [ ] Milestone 17 - Testing
-- [ ] Milestone 18 - Documentation
+- [x] Milestone 17 - Testing
+- [x] Milestone 18 - Documentation
 - [ ] Milestone 19 - Final Integration
 - [ ] Milestone 20 - Final Evaluation
 
@@ -463,32 +463,30 @@
 
 # Milestone 17 — Testing
 
-## Backend
+## Backend Tests (Pytest)
 
-- [ ] API testing
-- [ ] Database testing
-- [ ] Model testing
-- [ ] Prediction testing
+- [x] APIs (`test_api.py`)
+- [x] Database (`test_db.py`)
+- [x] Prediction Pipeline (`test_predict.py`)
+- [x] Training Pipeline (`test_train.py`)
 
----
+## Frontend Tests (Vitest)
 
-## Frontend
-
-- [ ] Dashboard
-- [ ] Charts
-- [ ] API integration
-- [ ] Error handling
+- [x] Frontend API integration (`api.test.js`)
+- [x] Dashboard UI components
+- [x] Visualization rendering
+- [x] Error handling
 
 ---
 
 # Milestone 18 — Documentation
 
-- [ ] README
-- [ ] Architecture diagram
-- [ ] Folder structure
-- [ ] API documentation
-- [ ] Installation guide
-- [ ] Usage guide
+- [x] Update `README.md`
+- [x] Architecture Diagram (Mermaid)
+- [x] API documentation (Swagger/Redoc usage)
+- [x] Installation guide
+- [x] Usage guide
+- [x] Future Scope
 
 ---
 
