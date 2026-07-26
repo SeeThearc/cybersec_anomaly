@@ -12,7 +12,7 @@
 - [x] Milestone 3 - Synthetic Data Generator
 - [x] Milestone 4 - Attack Simulation
 - [x] Milestone 5 - Feature Engineering
-- [ ] Milestone 6 - Behavior Profiling
+- [x] Milestone 6 - Behavior Profiling
 - [ ] Milestone 7 - Sequence Learning
 - [ ] Milestone 8 - Attack Classification
 - [ ] Milestone 9 - Risk Scoring
@@ -251,24 +251,24 @@
 
 ## Isolation Forest
 
-- [ ] Train model
-- [ ] Save model
-- [ ] Predict anomalies
+- [x] Train model
+- [x] Save model
+- [x] Predict anomalies
 
 ---
 
 ## Autoencoder
 
-- [ ] Train model
-- [ ] Reconstruction error
-- [ ] Save model
+- [x] Train model
+- [x] Reconstruction error
+- [x] Save model
 
 ---
 
 ## Combined Score
 
-- [ ] Normalize scores
-- [ ] Ensemble behavior score
+- [x] Normalize scores
+- [x] Ensemble behavior score
 
 ---
 
