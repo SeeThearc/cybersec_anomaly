@@ -86,6 +86,7 @@ python train.py
 
 # Seed the Dashboard with Demo Alerts
 python seed_alerts.py
+or use swagger - \docs for alerting via json request to predict
 
 # Start the API Server
 uvicorn app.main:app --reload
