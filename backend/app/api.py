@@ -60,6 +60,25 @@ def predict_event(request_data: schemas.PredictionRequest, request: Request, db:
     try:
         result = predictor.predict_event(event, history)
         
+        # Save to DB if it's a high risk alert
+        risk_score = result.get('risk_score', 0)
+        prediction = result.get('prediction', 'Normal')
+        confidence = result.get('confidence', 0.0)
+        
+        if risk_score >= 60 or prediction != "Normal":
+            try:
+                new_alert = schemas.AlertCreate(
+                    user_id=user_id if user_id else 1, # fallback to 1 if missing
+                    risk_score=risk_score,
+                    attack_type=prediction,
+                    prediction=prediction,
+                    explanation=f"ML Pipeline detected {prediction} behavior with confidence {confidence:.2f}"
+                )
+                crud.create_alert(db, new_alert)
+            except Exception as e:
+                # Don't fail the prediction if DB save fails
+                print(f"Failed to save alert to DB: {e}")
+        
         # Log execution time
         exec_time = time.time() - start_time
         result["execution_time_ms"] = round(exec_time * 1000, 2)
@@ -177,8 +196,28 @@ def get_user_profile(user_id: int, db: Session = Depends(get_db)):
 @router.post("/copilot")
 def ask_copilot(request: schemas.CopilotRequest, db: Session = Depends(get_db)):
     """Interact with the AI Security Copilot."""
-    # Build context for the mock LLM
-    context = {}
+    
+    # Dynamically pull the latest 5 high-risk alerts to give Gemini real context
+    recent_alerts = db.query(models.Alert).order_by(models.Alert.created_at.desc()).limit(5).all()
+    
+    # Format the alerts into a clean dictionary for the prompt
+    formatted_alerts = [
+        {
+            "alert_id": a.id,
+            "user_id": a.user_id,
+            "attack_type": a.attack_type,
+            "risk_score": a.risk_score,
+            "explanation": a.explanation,
+            "timestamp": str(a.created_at)
+        }
+        for a in recent_alerts
+    ]
+    
+    # Build context for Gemini
+    context = {
+        "recent_high_risk_alerts": formatted_alerts,
+        "system_status": "Active Threat Monitoring Enabled"
+    }
     
     response = CopilotService.generate_response(request.question, context)
     

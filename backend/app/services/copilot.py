@@ -3,12 +3,24 @@ import json
 import logging
 import time
 from typing import Dict, Any
+from dotenv import load_dotenv
+
+# Force load the .env file so os.environ picks it up!
+load_dotenv()
+
+# Try to import either the new or the classic Gemini SDK
+HAS_NEW_SDK = False
+HAS_CLASSIC_SDK = False
 
 try:
     from google import genai
-    HAS_GENAI = True
+    HAS_NEW_SDK = True
 except ImportError:
-    HAS_GENAI = False
+    try:
+        import google.generativeai as genai_classic
+        HAS_CLASSIC_SDK = True
+    except ImportError:
+        pass
 
 logger = logging.getLogger(__name__)
 
@@ -17,38 +29,40 @@ class CopilotService:
     
     @staticmethod
     def generate_response(question: str, context: Dict[str, Any]) -> str:
-        """
-        Generate a natural language explanation for an alert or user profile.
-        Uses Gemini if the GEMINI_API_KEY environment variable is set and the SDK is installed.
-        Otherwise, falls back to a fast deterministic mock.
-        """
         api_key = os.environ.get("GEMINI_API_KEY")
         
-        # Try real Gemini if available
-        if HAS_GENAI and api_key:
+        # If we have an API key, ALWAYS try to use real AI
+        if api_key and api_key != "paste_your_key_here":
+            if not HAS_NEW_SDK and not HAS_CLASSIC_SDK:
+                return "⚠️ **Error:** You have an API key, but the SDK is not installed. Please run `pip install google-generativeai` in the backend folder."
+                
+            prompt = (
+                "You are an expert AI Security Analyst inside a Security Operations Center (SOC). "
+                "You are assisting a human analyst. Answer their question based strictly on the provided telemetry context. "
+                "Keep your response concise, professional, and highly actionable. Format with Markdown. "
+                "Do not make up data outside the context.\n\n"
+                f"--- TELEMETRY CONTEXT ---\n{json.dumps(context, indent=2)}\n\n"
+                f"Analyst Question: {question}"
+            )
+            
             try:
-                client = genai.Client(api_key=api_key)
-                
-                prompt = (
-                    "You are an expert AI Security Analyst inside a Security Operations Center (SOC). "
-                    "You are assisting a human analyst. Answer their question based strictly on the provided telemetry context. "
-                    "Keep your response concise, professional, and highly actionable. Format with Markdown. "
-                    "Do not make up data outside the context.\n\n"
-                    f"--- TELEMETRY CONTEXT ---\n{json.dumps(context, indent=2)}\n\n"
-                    f"Analyst Question: {question}"
-                )
-                
-                response = client.models.generate_content(
-                    model='gemini-2.5-flash',
-                    contents=prompt,
-                )
-                
-                if response.text:
+                if HAS_NEW_SDK:
+                    client = genai.Client(api_key=api_key)
+                    response = client.models.generate_content(
+                        model='gemini-2.5-flash',
+                        contents=prompt,
+                    )
+                    return response.text
+                elif HAS_CLASSIC_SDK:
+                    genai_classic.configure(api_key=api_key)
+                    model = genai_classic.GenerativeModel('gemini-2.5-flash')
+                    response = model.generate_content(prompt)
                     return response.text
             except Exception as e:
-                logger.error(f"Gemini API Error: {str(e)}. Falling back to mock.")
+                logger.error(f"Gemini API Error: {str(e)}")
+                return f"⚠️ **Gemini API Error:** {str(e)}"
         
-        # --- Fast Offline Mock Fallback ---
+        # --- Fast Offline Mock Fallback (Only runs if no API key is found) ---
         time.sleep(0.1) # Simulate network latency
         question_lower = question.lower()
         

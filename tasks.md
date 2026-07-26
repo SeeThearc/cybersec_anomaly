@@ -22,7 +22,7 @@
 - [x] Milestone 13 - FastAPI APIs
 - [x] Milestone 14 - React Dashboard
 - [x] Milestone 15 - Analytics Dashboard
-- [ ] Milestone 16 - AI Security Copilot
+- [x] Milestone 16 - AI Security Copilot
 - [ ] Milestone 17 - Testing
 - [ ] Milestone 18 - Documentation
 - [ ] Milestone 19 - Final Integration
@@ -443,13 +443,21 @@
 
 # Milestone 16 — AI Security Copilot
 
-- [ ] Chat interface
-- [ ] Backend endpoint
-- [ ] Prompt generation
-- [ ] Alert explanation
-- [ ] User explanation
-- [ ] Incident summary
-- [ ] Recommended actions
+## Implementation
+
+- [x] Chat UI
+- [x] Backend endpoint
+- [x] Prompt builder
+
+## Copilot Skills
+
+- [x] Incident summarization
+- [x] Alert explanation
+- [x] Recommended actions
+
+## LLM Provider
+
+- [x] Integrate with Gemini/OpenAI
 
 ---
 
