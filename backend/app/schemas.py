@@ -145,9 +145,14 @@ class StatisticsResponse(BaseModel):
 
 
 class AnalyticsResponse(BaseModel):
-    attack_distribution: dict
-    department_distribution: dict
+    attack_distribution: list
+    department_distribution: list
     risk_trend: list
     monthly_events: list
-    top_resources: dict
-    top_attack_types: dict
+    top_resources: list
+    top_attack_types: list
+    # ML Metrics
+    roc_curve: list
+    pr_curve: list
+    confusion_matrix: dict
+    shap_importance: list

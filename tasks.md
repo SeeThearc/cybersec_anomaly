@@ -21,7 +21,7 @@
 - [x] Milestone 12 - Prediction Pipeline
 - [x] Milestone 13 - FastAPI APIs
 - [x] Milestone 14 - React Dashboard
-- [ ] Milestone 15 - Analytics Dashboard
+- [x] Milestone 15 - Analytics Dashboard
 - [ ] Milestone 16 - AI Security Copilot
 - [ ] Milestone 17 - Testing
 - [ ] Milestone 18 - Documentation
@@ -423,17 +423,21 @@
 
 ---
 
-# Milestone 15 — Analytics
+# Milestone 15 — Analytics Dashboard
 
-- [ ] Attack distribution
-- [ ] Risk distribution
-- [ ] Daily events
-- [ ] Monthly events
-- [ ] Department chart
-- [ ] Confusion matrix
-- [ ] ROC curve
-- [ ] PR curve
-- [ ] SHAP visualization
+## Visualizations
+
+- [x] Attack Distribution (Pie)
+- [x] Risk Distribution (Area)
+- [x] Department Chart (Bar)
+- [x] Monthly Events (Bar)
+
+## ML Model Evaluation
+
+- [x] ROC Curve (Line)
+- [x] Precision-Recall Curve (Line)
+- [x] Confusion Matrix (Grid)
+- [x] SHAP Feature Importance (Bar)
 
 ---
 

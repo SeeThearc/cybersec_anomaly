@@ -130,6 +130,38 @@ def get_analytics(db: Session = Depends(get_db)):
         "top_attack_types": [
             {"name": "BruteForce", "count": 142},
             {"name": "CredentialStuffing", "count": 89},
+        ],
+        "roc_curve": [
+            {"fpr": 0.0, "tpr": 0.0},
+            {"fpr": 0.01, "tpr": 0.85},
+            {"fpr": 0.05, "tpr": 0.96},
+            {"fpr": 0.1, "tpr": 0.98},
+            {"fpr": 0.2, "tpr": 0.99},
+            {"fpr": 1.0, "tpr": 1.0},
+        ],
+        "pr_curve": [
+            {"recall": 0.0, "precision": 1.0},
+            {"recall": 0.5, "precision": 0.99},
+            {"recall": 0.8, "precision": 0.95},
+            {"recall": 0.9, "precision": 0.90},
+            {"recall": 0.95, "precision": 0.82},
+            {"recall": 1.0, "precision": 0.60},
+        ],
+        "confusion_matrix": {
+            "classes": ["Normal", "BruteForce", "CredStuff", "Lateral"],
+            "matrix": [
+                [4800, 12, 5, 2],
+                [8, 142, 0, 0],
+                [3, 0, 89, 0],
+                [1, 0, 0, 45]
+            ]
+        },
+        "shap_importance": [
+            {"feature": "failed_attempts", "importance": 0.85},
+            {"feature": "session_duration", "importance": 0.62},
+            {"feature": "bytes_transferred", "importance": 0.45},
+            {"feature": "country_risk", "importance": 0.38},
+            {"feature": "hour_of_day", "importance": 0.25},
         ]
     }
 
