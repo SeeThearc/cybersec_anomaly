@@ -17,7 +17,7 @@
 - [x] Milestone 8 - Attack Classification
 - [x] Milestone 9 - Risk Scoring
 - [x] Milestone 10 - Explainability
-- [ ] Milestone 11 - Model Training Pipeline
+- [x] Milestone 11 - Model Training Pipeline
 - [ ] Milestone 12 - Prediction Pipeline
 - [ ] Milestone 13 - FastAPI APIs
 - [ ] Milestone 14 - React Dashboard
@@ -348,15 +348,23 @@
 
 ---
 
-# Milestone 11 — Training Pipeline
+# Milestone 11 — Model Training Pipeline
 
-- [ ] Feature engineering
-- [ ] Train Isolation Forest
-- [ ] Train Autoencoder
-- [ ] Train LSTM
-- [ ] Train XGBoost
-- [ ] Save models
-- [ ] Generate evaluation metrics
+## Automation
+
+- [x] Train isolation forest
+- [x] Train autoencoder
+- [x] Train LSTM
+- [x] Train XGBoost
+- [x] Save all models
+
+## Evaluation
+
+- [x] Confusion matrix
+- [x] ROC curve
+- [x] PR curve
+- [x] Classification metrics
+- [x] SHAP summary plot
 
 ---
 

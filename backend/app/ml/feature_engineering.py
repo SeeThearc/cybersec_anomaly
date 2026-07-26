@@ -278,8 +278,9 @@ class FeatureEngineer:
         X = np.hstack([X_num_scaled, X_cat_encoded])
 
         # Target label encoding
-        if "label" in df_feat.columns:
-            y = self.label_encoder.fit_transform(df_feat["label"])
+        target_col = "attack_type" if "attack_type" in df_feat.columns else "label"
+        if target_col in df_feat.columns:
+            y = self.label_encoder.fit_transform(df_feat[target_col])
         else:
             y = np.zeros(len(df_feat), dtype=int)
 
@@ -301,10 +302,11 @@ class FeatureEngineer:
 
         X = np.hstack([X_num_scaled, X_cat_encoded])
 
-        if "label" in df_feat.columns:
+        target_col = "attack_type" if "attack_type" in df_feat.columns else "label"
+        if target_col in df_feat.columns:
             # Handle unseen labels gracefully
             known_labels = set(self.label_encoder.classes_)
-            labels = df_feat["label"].apply(lambda l: l if l in known_labels else "Normal")
+            labels = df_feat[target_col].apply(lambda l: l if l in known_labels else "Normal")
             y = self.label_encoder.transform(labels)
         else:
             y = np.zeros(len(df_feat), dtype=int)

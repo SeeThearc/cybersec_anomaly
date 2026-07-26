@@ -632,3 +632,13 @@ def run_generation(
         "splits": splits,
         "elapsed_seconds": elapsed,
     }
+
+
+if __name__ == "__main__":
+    from app.database import engine
+    from sqlalchemy.orm import sessionmaker
+    
+    SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+    with SessionLocal() as db:
+        print("Starting Data Generation...")
+        run_generation(db)
