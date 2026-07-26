@@ -27,6 +27,11 @@ export const getEvents = async (limit = 100) => {
   return response.data;
 };
 
+export const getUsers = async (skip = 0, limit = 100) => {
+  const response = await api.get(`/users?skip=${skip}&limit=${limit}`);
+  return response.data;
+};
+
 export const getAnalytics = async () => {
   const response = await api.get("/analytics");
   return response.data;

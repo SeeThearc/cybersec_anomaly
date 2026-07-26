@@ -20,7 +20,7 @@ export default function Sidebar() {
           <div className="w-8 h-8 rounded bg-[#2563eb] flex items-center justify-center font-bold">
             U
           </div>
-          <span className="text-xl font-bold tracking-wider">UEBA SOC</span>
+          <span className="text-xl font-bold tracking-wider">Cyber Detect</span>
         </div>
       </div>
 

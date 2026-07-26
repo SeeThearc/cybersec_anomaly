@@ -8,61 +8,70 @@ from dotenv import load_dotenv
 # Force load the .env file so os.environ picks it up!
 load_dotenv()
 
-# Try to import either the new or the classic Gemini SDK
-HAS_NEW_SDK = False
-HAS_CLASSIC_SDK = False
-
-try:
-    from google import genai
-    HAS_NEW_SDK = True
-except ImportError:
-    try:
-        import google.generativeai as genai_classic
-        HAS_CLASSIC_SDK = True
-    except ImportError:
-        pass
-
 logger = logging.getLogger(__name__)
 
 class CopilotService:
-    """Service to handle AI Copilot requests."""
+    """Service to handle AI Copilot requests using LangChain."""
     
     @staticmethod
     def generate_response(question: str, context: Dict[str, Any]) -> str:
         api_key = os.environ.get("GEMINI_API_KEY")
         
-        # If we have an API key, ALWAYS try to use real AI
+        # If we have an API key, use LangChain LCEL pipeline
         if api_key and api_key != "paste_your_key_here":
-            if not HAS_NEW_SDK and not HAS_CLASSIC_SDK:
-                return "⚠️ **Error:** You have an API key, but the SDK is not installed. Please run `pip install google-generativeai` in the backend folder."
-                
-            prompt = (
-                "You are an AI Security Analyst inside a Security Operations Center (SOC). "
-                "You are assisting a human analyst. Answer their question based strictly on the provided telemetry context. "
-                "Provide a crisp, direct, and conversational answer. Summarize the core issue (who, what, and why it was flagged) "
-                "in a few sentences. Do not generate a massive report. "
-                "End by briefly suggesting that the user can ask for a deeper anomaly breakdown or mitigation steps if they need more details.\n\n"
-                "Format beautifully with Markdown. Do not make up data outside the context.\n\n"
-                f"--- TELEMETRY CONTEXT ---\n{json.dumps(context, indent=2)}\n\n"
-                f"Analyst Question: {question}"
-            )
-            
             try:
-                if HAS_NEW_SDK:
-                    client = genai.Client(api_key=api_key)
-                    response = client.models.generate_content(
-                        model='gemini-2.0-flash',
-                        contents=prompt,
-                    )
-                    return response.text
-                elif HAS_CLASSIC_SDK:
-                    genai_classic.configure(api_key=api_key)
-                    model = genai_classic.GenerativeModel('gemini-2.5-flash')
-                    response = model.generate_content(prompt)
-                    return response.text
+                from langchain_google_genai import ChatGoogleGenerativeAI
+                from langchain_core.prompts import PromptTemplate
+                from langchain_core.output_parsers import StrOutputParser
+            except ImportError:
+                return "⚠️ **Error:** You have an API key, but LangChain is not installed. Please run `pip install -r requirements.txt` in the backend folder."
+                
+            try:
+                # 1. Instantiate the LLM
+                llm = ChatGoogleGenerativeAI(
+                    model="gemini-3.5-flash",
+                    google_api_key=api_key,
+                    temperature=0.3
+                )
+                
+                # 2. Define the Prompt Template
+                template = """
+You are an AI Security Analyst inside a Security Operations Center (SOC). 
+You are assisting a human analyst. Answer their question based strictly on the provided telemetry context. 
+Provide a crisp, direct, and conversational answer. Summarize the core issue (who, what, and why it was flagged) 
+in a few sentences. Do not generate a massive report. 
+End by briefly suggesting that the user can ask for a deeper anomaly breakdown or mitigation steps if they need more details.
+
+Format beautifully with Markdown. Do not make up data outside the context.
+
+--- TELEMETRY CONTEXT ---
+{telemetry_context}
+
+Analyst Question: {question}
+"""
+                
+                prompt = PromptTemplate(
+                    template=template,
+                    input_variables=["telemetry_context", "question"]
+                )
+                
+                # 3. Output Parser
+                parser = StrOutputParser()
+                
+                # 4. Construct LCEL Chain
+                chain = prompt | llm | parser
+                
+                # 5. Invoke the chain
+                response = chain.invoke({
+                    "telemetry_context": json.dumps(context, indent=2),
+                    "question": question
+                })
+                
+                return response
+                
             except Exception as e:
-                logger.error(f"Gemini API Error: {str(e)}")
-                return f"⚠️ **Gemini API Error:** {str(e)}"
+                logger.error(f"LangChain Gemini Error: {str(e)}")
+                return f"⚠️ **LangChain Gemini Error:** {str(e)}"
         
         # --- Fast Offline Mock Fallback (Only runs if no API key is found) ---
         time.sleep(0.1) # Simulate network latency

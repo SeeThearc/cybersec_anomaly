@@ -201,6 +201,10 @@ def get_analytics(db: Session = Depends(get_db)):
         ]
     }
 
+@router.get("/users", response_model=list[schemas.UserRead])
+def get_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    return crud.get_users(db, skip=skip, limit=limit)
+
 @router.get("/users/{user_id}", response_model=schemas.UserRead)
 def get_user_profile(user_id: int, db: Session = Depends(get_db)):
     user = crud.get_user_with_relations(db, user_id)
