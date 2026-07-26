@@ -18,7 +18,7 @@
 - [x] Milestone 9 - Risk Scoring
 - [x] Milestone 10 - Explainability
 - [x] Milestone 11 - Model Training Pipeline
-- [ ] Milestone 12 - Prediction Pipeline
+- [x] Milestone 12 - Prediction Pipeline
 - [ ] Milestone 13 - FastAPI APIs
 - [ ] Milestone 14 - React Dashboard
 - [ ] Milestone 15 - Analytics Dashboard
@@ -370,14 +370,16 @@
 
 # Milestone 12 — Prediction Pipeline
 
-- [ ] Load models
-- [ ] Feature engineering
-- [ ] Behavior prediction
-- [ ] Sequence prediction
-- [ ] Classification
-- [ ] Risk scoring
-- [ ] SHAP explanation
-- [ ] JSON response
+## Inference Engine
+
+- [x] Load trained models
+- [x] Extract features from raw JSON event
+- [x] Predict behavior anomaly score
+- [x] Predict sequence score
+- [x] Run XGBoost classifier
+- [x] Calculate risk score
+- [x] Explain prediction with SHAP
+- [x] Output standardized JSON response
 
 ---
 
