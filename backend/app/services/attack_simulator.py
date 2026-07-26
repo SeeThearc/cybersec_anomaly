@@ -124,7 +124,7 @@ def _simulate_brute_force(
             failed_attempts=attempt + 1, bytes_transferred=0,
             command_sequence=None, label=label,
         ))
-        ts += timedelta(seconds=random.randint(3, 45))
+        ts += timedelta(milliseconds=random.randint(100, 1500))
 
     # Eventual success
     events.append(Event(
@@ -259,7 +259,7 @@ def _simulate_credential_stuffing(
                 failed_attempts=i + 1, bytes_transferred=0,
                 command_sequence=None, label=label,
             ))
-            ts += timedelta(seconds=random.randint(2, 15))
+            ts += timedelta(milliseconds=random.randint(50, 800))
 
     usernames = ", ".join(t.name.split()[0] for t in targets[:5])
     seq = f"Stuffing({usernames}...)"

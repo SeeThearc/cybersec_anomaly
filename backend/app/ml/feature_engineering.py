@@ -143,7 +143,7 @@ class FeatureEngineer:
 
         # Ensure timestamp is datetime
         if not pd.api.types.is_datetime64_any_dtype(df["timestamp"]):
-            df["timestamp"] = pd.to_datetime(df["timestamp"])
+            df["timestamp"] = pd.to_datetime(df["timestamp"], format='mixed', utc=True)
 
         # Sort by user and timestamp for temporal feature calculations
         df = df.sort_values(by=["user_id", "timestamp"]).reset_index(drop=True)

@@ -367,10 +367,10 @@ def _generate_session(
         second=random.randint(0, 59), microsecond=0,
     )
 
-    session_secs = max(
-        600,
-        int(profile["avg_session_minutes"] * 60 * random.uniform(0.7, 1.3)),
-    )
+    # Log-normal distribution for session duration (heavy tail)
+    mean_secs = profile["avg_session_minutes"] * 60
+    mu = np.log(mean_secs) if mean_secs > 0 else np.log(600)
+    session_secs = max(60, int(np.random.lognormal(mu - 0.125, 0.5)))
 
     # 5 % chance of a mistyped-password before success
     failed = 1 if random.random() < 0.05 else 0
@@ -409,15 +409,15 @@ def _generate_session(
         )[0]
 
         if action == "Download":
-            bytes_t = random.randint(
-                1024, max(2048, profile["avg_downloads_mb"] * 512 * 1024),
-            )
+            mean_bytes = max(1, profile["avg_downloads_mb"]) * 1024 * 1024
+            bytes_t = int(np.random.lognormal(np.log(mean_bytes) - 0.5, 1.0))
         elif action == "Upload":
-            bytes_t = random.randint(
-                512, max(1024, profile["avg_uploads_mb"] * 512 * 1024),
-            )
+            mean_bytes = max(1, profile["avg_uploads_mb"]) * 1024 * 1024
+            bytes_t = int(np.random.lognormal(np.log(mean_bytes) - 0.5, 1.0))
         else:
-            bytes_t = random.randint(64, 10240)
+            bytes_t = int(np.random.lognormal(np.log(1024) - 0.5, 1.0))
+            
+        bytes_t = max(64, bytes_t) # Ensure minimum transfer
 
         events.append(Event(
             user_id=user.id, timestamp=ts, country=country,

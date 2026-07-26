@@ -1,0 +1,11 @@
+- [x] Refine Data Generation Scripts
+  - [x] Use log-normal distribution for bytes transferred and session durations
+  - [x] Speed up brute-force timings in simulator
+  - [x] Make credential stuffing failures faster
+- [ ] Generate New Dataset
+  - [ ] Run `app/ml/data_generator.py`
+- [ ] Train Models
+  - [ ] Run `train.py`
+- [ ] Verification
+  - [ ] Test the new pipeline with single event predictions
+  - [ ] Create/Update Walkthrough

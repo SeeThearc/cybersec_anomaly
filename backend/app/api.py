@@ -56,16 +56,14 @@ def predict_event(request_data: schemas.PredictionRequest, request: Request, db:
         db_events = sorted(db_events, key=lambda x: x.timestamp)[-9:]
         history = [
             {
-                "event_id": e.event_id,
+                "event_id": e.id,
                 "user_id": e.user_id,
                 "device_id": e.device_id,
                 "timestamp": e.timestamp.isoformat() if e.timestamp else None,
                 "action": e.action,
                 "resource": e.resource,
-                "status": e.status,
                 "bytes_transferred": e.bytes_transferred,
                 "ip_address": e.ip_address,
-                "location": e.location,
                 "session_duration": e.session_duration,
                 "failed_attempts": e.failed_attempts,
                 "login_status": e.login_status,

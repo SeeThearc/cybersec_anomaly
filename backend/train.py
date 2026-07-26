@@ -160,7 +160,7 @@ def main() -> None:
     
     print(f"  Training LSTM on {len(seq_X_train_normal)} normal sequences...")
     # Using low epochs for speed; increase for production accuracy
-    seq_profiler.fit(seq_X_train_normal, epochs=3, batch_size=64)
+    seq_profiler.fit(seq_X_train_normal, epochs=8, batch_size=64)
     seq_profiler.save(MODELS_DIR)
     print("  ✓ Sequence Profiler (LSTM) fitted and saved.\n")
 
