@@ -13,7 +13,7 @@
 - [x] Milestone 4 - Attack Simulation
 - [x] Milestone 5 - Feature Engineering
 - [x] Milestone 6 - Behavior Profiling
-- [ ] Milestone 7 - Sequence Learning
+- [x] Milestone 7 - Sequence Learning
 - [ ] Milestone 8 - Attack Classification
 - [ ] Milestone 9 - Risk Scoring
 - [ ] Milestone 10 - Explainability
@@ -274,14 +274,17 @@
 
 # Milestone 7 — Sequence Learning
 
-## LSTM
+## Sequence Model
 
-- [ ] Sequence preparation
-- [ ] Tokenization
-- [ ] Embedding
-- [ ] Training
-- [ ] Validation
-- [ ] Save model
+- [x] Sequence generation
+- [x] Tokenization
+- [x] LSTM
+
+## Training & Validation
+
+- [x] Training
+- [x] Validation
+- [x] Save model
 
 ---
 

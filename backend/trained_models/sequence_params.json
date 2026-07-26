@@ -1,0 +1,8 @@
+{
+    "vocab_size": 6,
+    "sequence_length": 10,
+    "embedding_dim": 16,
+    "lstm_units": 32,
+    "loss_min": 1.3837746381759644,
+    "loss_max": 2.3159990310668945
+}
