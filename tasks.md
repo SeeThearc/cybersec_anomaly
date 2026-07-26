@@ -15,7 +15,7 @@
 - [x] Milestone 6 - Behavior Profiling
 - [x] Milestone 7 - Sequence Learning
 - [x] Milestone 8 - Attack Classification
-- [ ] Milestone 9 - Risk Scoring
+- [x] Milestone 9 - Risk Scoring
 - [ ] Milestone 10 - Explainability
 - [ ] Milestone 11 - Model Training Pipeline
 - [ ] Milestone 12 - Prediction Pipeline
@@ -316,12 +316,18 @@
 
 # Milestone 9 — Risk Scoring
 
-- [ ] Behavior score
-- [ ] Sequence score
-- [ ] Classifier confidence
-- [ ] Historical risk
-- [ ] Final risk score
-- [ ] Risk levels
+## Risk Engine
+
+- [x] Behavior score weight
+- [x] Sequence score weight
+- [x] Classifier confidence weight
+- [x] Historical risk weight
+
+## Outputs
+
+- [x] Risk score (0-100)
+- [x] Risk level (Low/Medium/High/Critical)
+- [x] Recommended actions
 
 ---
 
