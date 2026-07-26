@@ -5,43 +5,8 @@ An advanced User and Entity Behavior Analytics (UEBA) platform that leverages Ma
 ---
 
 ## 🏗️ Architecture Diagram
+<img width="985" height="532" alt="Screenshot 2026-07-26 233716" src="https://github.com/user-attachments/assets/57d13869-4ba2-4172-ad22-a5a33fd8cb31" />
 
-```mermaid
-graph TD
-    subaxis
-        UI[React Dashboard]
-        Copilot[AI Security Copilot]
-    end
-    
-    subaxis
-        API[FastAPI Backend]
-        DB[(PostgreSQL)]
-    end
-
-    subaxis ML Pipeline
-        FE[Feature Engineering]
-        BP[Isolation Forest + Autoencoder]
-        SP[LSTM Sequence Model]
-        XGB[XGBoost Classifier]
-        SHAP[SHAP Explainer]
-    end
-
-    UI <--> |REST API| API
-    Copilot <--> |REST API| API
-    
-    API <--> |CRUD| DB
-    API --> |Raw Event| FE
-    
-    FE --> BP
-    FE --> SP
-    
-    BP --> XGB
-    SP --> XGB
-    FE --> XGB
-    
-    XGB --> |Prediction| SHAP
-    SHAP --> |Risk Score & Explanation| API
-```
 
 ---
 
