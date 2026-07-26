@@ -20,7 +20,7 @@
 - [x] Milestone 11 - Model Training Pipeline
 - [x] Milestone 12 - Prediction Pipeline
 - [x] Milestone 13 - FastAPI APIs
-- [ ] Milestone 14 - React Dashboard
+- [x] Milestone 14 - React Dashboard
 - [ ] Milestone 15 - Analytics Dashboard
 - [ ] Milestone 16 - AI Security Copilot
 - [ ] Milestone 17 - Testing
@@ -404,23 +404,22 @@
 
 ---
 
-# Milestone 14 — Dashboard
+# Milestone 14 — React Dashboard
 
-## Layout
+## Layout Components
 
-- [ ] Sidebar
-- [ ] Navbar
-- [ ] Responsive layout
+- [x] Setup TailwindCSS v4 with SOC theme
+- [x] Implement API wrapper (`api.js`)
+- [x] Sidebar navigation
+- [x] Navbar with system status
 
----
+## Dashboard View
 
-## Dashboard
-
-- [ ] Metric cards
-- [ ] Alert table
-- [ ] Risk gauge
-- [ ] Timeline
-- [ ] Live events
+- [x] Metric Cards (Total Users, Alerts, Risk)
+- [x] Active Alerts Table
+- [x] Risk Gauge Chart (Recharts)
+- [x] Event Timeline
+- [x] Auto-refresh data every 15s
 
 ---
 
