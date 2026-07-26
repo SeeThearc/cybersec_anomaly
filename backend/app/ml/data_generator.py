@@ -17,6 +17,7 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.models import AttackLabel, Device, Event, User
+from app.utils import generate_ip
 
 # ── Faker instance ───────────────────────────────────────────────────
 
@@ -233,7 +234,7 @@ def _build_user_profile(user: User) -> dict[str, Any]:
         "avg_downloads_mb": random.randint(*dp["download_mb"]),
         "avg_uploads_mb": random.randint(*dp["upload_mb"]),
         "base_country": user.country,
-        "base_ip": _generate_ip(),
+        "base_ip": generate_ip(),
         # Most employees log in once per day; some log in twice.
         "sessions_per_day": random.choices([1, 2], weights=[0.7, 0.3], k=1)[0],
     }
@@ -472,10 +473,7 @@ def _validate_events(events: list[Event]) -> list[Event]:
 
 # ── Helpers ──────────────────────────────────────────────────────────
 
-
-def _generate_ip() -> str:
-    """Return a synthetic private-network IP."""
-    return f"10.{random.randint(0, 255)}.{random.randint(0, 255)}.{random.randint(1, 254)}"
+# generate_ip() is imported from app.utils (shared with attack_simulator)
 
 
 # ── CSV Export ───────────────────────────────────────────────────────
@@ -561,7 +559,8 @@ def run_generation(
     2. Generate users
     3. Generate devices
     4. Generate normal-behaviour events
-    5. Export train / validation / test CSVs
+    5. Simulate cyber attacks
+    6. Export train / validation / test CSVs
     """
     import time
 
@@ -595,11 +594,25 @@ def run_generation(
     db.commit()
     print(f"  ✓ {device_count} devices created")
 
-    # ── Events ───────────────────────────────────────────────────
+    # ── Normal events ────────────────────────────────────────────
     print("Generating normal-behaviour events...")
-    event_count = generate_events(db, users, device_map, profiles)
+    normal_count = generate_events(db, users, device_map, profiles)
     db.commit()
-    print(f"  ✓ {event_count} events created")
+    print(f"  ✓ {normal_count} normal events created")
+
+    # ── Attack simulation ────────────────────────────────────────
+    from app.services.attack_simulator import run_attack_simulation
+
+    print("Simulating cyber attacks...")
+    attack_results = run_attack_simulation(
+        db, users, device_map, profiles, normal_count, seed=seed + 1,
+    )
+    attack_count = sum(attack_results.values())
+    for attack_type, count in attack_results.items():
+        print(f"    {attack_type}: {count:,} events")
+    print(f"  ✓ {attack_count:,} attack events created")
+
+    event_count = normal_count + attack_count
 
     # ── CSV export ───────────────────────────────────────────────
     print("Exporting datasets...")

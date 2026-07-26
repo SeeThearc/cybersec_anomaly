@@ -10,8 +10,8 @@
 - [x] Milestone 1 - Project Setup
 - [x] Milestone 2 - Database
 - [x] Milestone 3 - Synthetic Data Generator
-- [ ] Milestone 4 - Attack Simulation
-- [ ] Milestone 5 - Feature Engineering
+- [x] Milestone 4 - Attack Simulation
+- [x] Milestone 5 - Feature Engineering
 - [ ] Milestone 6 - Behavior Profiling
 - [ ] Milestone 7 - Sequence Learning
 - [ ] Milestone 8 - Attack Classification
@@ -123,64 +123,64 @@
 
 ## Normal Behavior
 
-- [ ] Build baseline behavior
-- [ ] Verify realistic sequences
+- [x] Build baseline behavior
+- [x] Verify realistic sequences
 
 ---
 
 ## Brute Force
 
-- [ ] Failed login bursts
-- [ ] High login frequency
-- [ ] Same IP simulation
+- [x] Failed login bursts
+- [x] High login frequency
+- [x] Same IP simulation
 
 ---
 
 ## Impossible Travel
 
-- [ ] Geo changes
-- [ ] Distance calculation
-- [ ] Travel speed calculation
+- [x] Geo changes
+- [x] Distance calculation
+- [x] Travel speed calculation
 
 ---
 
 ## Credential Stuffing
 
-- [ ] Multiple users
-- [ ] Same IP
-- [ ] Failure bursts
+- [x] Multiple users
+- [x] Same IP
+- [x] Failure bursts
 
 ---
 
 ## Device Spoofing
 
-- [ ] New device
-- [ ] Browser change
-- [ ] OS change
-- [ ] Fingerprint change
+- [x] New device
+- [x] Browser change
+- [x] OS change
+- [x] Fingerprint change
 
 ---
 
 ## Lateral Movement
 
-- [ ] Resource traversal
-- [ ] Privilege escalation
-- [ ] Server movement
+- [x] Resource traversal
+- [x] Privilege escalation
+- [x] Server movement
 
 ---
 
 ## Low-and-Slow Exfiltration
 
-- [ ] Gradual downloads
-- [ ] Long-term trend
+- [x] Gradual downloads
+- [x] Long-term trend
 
 ---
 
 ## Insider Drift
 
-- [ ] Role changes
-- [ ] Resource expansion
-- [ ] Behavioral adaptation
+- [x] Role changes
+- [x] Resource expansion
+- [x] Behavioral adaptation
 
 ---
 
@@ -188,62 +188,62 @@
 
 ## Time Features
 
-- [ ] Hour
-- [ ] Day
-- [ ] Month
-- [ ] Weekend
-- [ ] Working hours
+- [x] Hour
+- [x] Day
+- [x] Month
+- [x] Weekend
+- [x] Working hours
 
 ---
 
 ## Login Features
 
-- [ ] Failed logins
-- [ ] Login frequency
-- [ ] Attempts per minute
+- [x] Failed logins
+- [x] Login frequency
+- [x] Attempts per minute
 
 ---
 
 ## Device Features
 
-- [ ] Known device
-- [ ] Device change
-- [ ] Browser change
-- [ ] Fingerprint change
+- [x] Known device
+- [x] Device change
+- [x] Browser change
+- [x] Fingerprint change
 
 ---
 
 ## Geo Features
 
-- [ ] Country change
-- [ ] Travel distance
-- [ ] Travel speed
+- [x] Country change
+- [x] Travel distance
+- [x] Travel speed
 
 ---
 
 ## Resource Features
 
-- [ ] Resource diversity
-- [ ] Sensitive resource
-- [ ] First-time access
+- [x] Resource diversity
+- [x] Sensitive resource
+- [x] First-time access
 
 ---
 
 ## Sequence Features
 
-- [ ] User sequences
-- [ ] Action encoding
-- [ ] Sequence windows
+- [x] User sequences
+- [x] Action encoding
+- [x] Sequence windows
 
 ---
 
 ## Data Processing
 
-- [ ] Encoding
-- [ ] Scaling
-- [ ] Train split
-- [ ] Validation split
-- [ ] Test split
+- [x] Encoding
+- [x] Scaling
+- [x] Train split
+- [x] Validation split
+- [x] Test split
 
 ---
 
