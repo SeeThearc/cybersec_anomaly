@@ -14,7 +14,7 @@
 - [x] Milestone 5 - Feature Engineering
 - [x] Milestone 6 - Behavior Profiling
 - [x] Milestone 7 - Sequence Learning
-- [ ] Milestone 8 - Attack Classification
+- [x] Milestone 8 - Attack Classification
 - [ ] Milestone 9 - Risk Scoring
 - [ ] Milestone 10 - Explainability
 - [ ] Milestone 11 - Model Training Pipeline
@@ -290,12 +290,14 @@
 
 # Milestone 8 — Attack Classification
 
-## XGBoost
+## XGBoost Classifier
 
-- [ ] Prepare features
-- [ ] Train classifier
-- [ ] Validate
-- [ ] Save model
+- [x] Train model
+- [x] Feature vector input
+- [x] Behavior score input
+- [x] Sequence score input
+- [x] Predict probabilities
+- [x] Save model
 
 ---
 
