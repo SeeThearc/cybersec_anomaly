@@ -303,14 +303,14 @@
 
 ## Classes
 
-- [ ] Normal
-- [ ] Brute Force
-- [ ] Credential Stuffing
-- [ ] Impossible Travel
-- [ ] Device Spoofing
-- [ ] Lateral Movement
-- [ ] Low-and-Slow Exfiltration
-- [ ] Insider Drift
+- [x] Normal
+- [x] Brute Force
+- [x] Credential Stuffing
+- [x] Impossible Travel
+- [x] Device Spoofing
+- [x] Lateral Movement
+- [x] Low-and-Slow Exfiltration
+- [x] Insider Drift
 
 ---
 
