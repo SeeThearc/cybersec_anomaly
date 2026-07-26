@@ -1,0 +1,548 @@
+# TASKS.md
+
+# AI-Driven User & Entity Behavior Analytics (UEBA)
+## Project Development Checklist
+
+---
+
+# Project Progress
+
+- [x] Milestone 1 - Project Setup
+- [x] Milestone 2 - Database
+- [x] Milestone 3 - Synthetic Data Generator
+- [ ] Milestone 4 - Attack Simulation
+- [ ] Milestone 5 - Feature Engineering
+- [ ] Milestone 6 - Behavior Profiling
+- [ ] Milestone 7 - Sequence Learning
+- [ ] Milestone 8 - Attack Classification
+- [ ] Milestone 9 - Risk Scoring
+- [ ] Milestone 10 - Explainability
+- [ ] Milestone 11 - Model Training Pipeline
+- [ ] Milestone 12 - Prediction Pipeline
+- [ ] Milestone 13 - FastAPI APIs
+- [ ] Milestone 14 - React Dashboard
+- [ ] Milestone 15 - Analytics Dashboard
+- [ ] Milestone 16 - AI Security Copilot
+- [ ] Milestone 17 - Testing
+- [ ] Milestone 18 - Documentation
+- [ ] Milestone 19 - Final Integration
+- [ ] Milestone 20 - Final Evaluation
+
+---
+
+# Milestone 1 — Project Setup
+
+## Backend
+
+- [x] Create FastAPI project
+- [x] Configure virtual environment
+- [x] Install dependencies
+- [x] Create project folders
+- [x] Configure environment variables
+- [x] Configure PostgreSQL connection
+- [x] Verify backend starts successfully
+
+---
+
+## Frontend
+
+- [x] Create React project using Vite
+- [x] Install TailwindCSS
+- [x] Install Axios
+- [x] Install Recharts
+- [x] Configure routing
+- [x] Create dark theme
+- [x] Verify frontend runs
+
+---
+
+# Milestone 2 — Database
+
+## SQLAlchemy Models
+
+- [x] Users
+- [x] Devices
+- [x] Events
+- [x] Alerts
+
+---
+
+## Database
+
+- [x] Create tables
+- [x] Test CRUD operations
+- [x] Verify relationships
+- [x] Seed sample records
+
+---
+
+# Milestone 3 — Synthetic Data Generator
+
+## Employee Generator
+
+- [x] Generate users
+- [x] Generate departments
+- [x] Generate roles
+- [x] Generate countries
+- [x] Generate work schedules
+- [x] Generate login patterns
+
+---
+
+## Device Generator
+
+- [x] Create devices
+- [x] Assign fingerprints
+- [x] Assign browsers
+- [x] Assign operating systems
+
+---
+
+## Event Generator
+
+- [x] Generate authentication logs
+- [x] Generate access logs
+- [x] Generate sessions
+- [x] Generate uploads
+- [x] Generate downloads
+- [x] Generate command sequences
+
+---
+
+## Validation
+
+- [x] Validate timestamps
+- [x] Validate IDs
+- [x] Validate countries
+- [x] Validate sessions
+- [x] Remove invalid rows
+
+---
+
+# Milestone 4 — Attack Simulation
+
+## Normal Behavior
+
+- [ ] Build baseline behavior
+- [ ] Verify realistic sequences
+
+---
+
+## Brute Force
+
+- [ ] Failed login bursts
+- [ ] High login frequency
+- [ ] Same IP simulation
+
+---
+
+## Impossible Travel
+
+- [ ] Geo changes
+- [ ] Distance calculation
+- [ ] Travel speed calculation
+
+---
+
+## Credential Stuffing
+
+- [ ] Multiple users
+- [ ] Same IP
+- [ ] Failure bursts
+
+---
+
+## Device Spoofing
+
+- [ ] New device
+- [ ] Browser change
+- [ ] OS change
+- [ ] Fingerprint change
+
+---
+
+## Lateral Movement
+
+- [ ] Resource traversal
+- [ ] Privilege escalation
+- [ ] Server movement
+
+---
+
+## Low-and-Slow Exfiltration
+
+- [ ] Gradual downloads
+- [ ] Long-term trend
+
+---
+
+## Insider Drift
+
+- [ ] Role changes
+- [ ] Resource expansion
+- [ ] Behavioral adaptation
+
+---
+
+# Milestone 5 — Feature Engineering
+
+## Time Features
+
+- [ ] Hour
+- [ ] Day
+- [ ] Month
+- [ ] Weekend
+- [ ] Working hours
+
+---
+
+## Login Features
+
+- [ ] Failed logins
+- [ ] Login frequency
+- [ ] Attempts per minute
+
+---
+
+## Device Features
+
+- [ ] Known device
+- [ ] Device change
+- [ ] Browser change
+- [ ] Fingerprint change
+
+---
+
+## Geo Features
+
+- [ ] Country change
+- [ ] Travel distance
+- [ ] Travel speed
+
+---
+
+## Resource Features
+
+- [ ] Resource diversity
+- [ ] Sensitive resource
+- [ ] First-time access
+
+---
+
+## Sequence Features
+
+- [ ] User sequences
+- [ ] Action encoding
+- [ ] Sequence windows
+
+---
+
+## Data Processing
+
+- [ ] Encoding
+- [ ] Scaling
+- [ ] Train split
+- [ ] Validation split
+- [ ] Test split
+
+---
+
+# Milestone 6 — Behavior Profiling
+
+## Isolation Forest
+
+- [ ] Train model
+- [ ] Save model
+- [ ] Predict anomalies
+
+---
+
+## Autoencoder
+
+- [ ] Train model
+- [ ] Reconstruction error
+- [ ] Save model
+
+---
+
+## Combined Score
+
+- [ ] Normalize scores
+- [ ] Ensemble behavior score
+
+---
+
+# Milestone 7 — Sequence Learning
+
+## LSTM
+
+- [ ] Sequence preparation
+- [ ] Tokenization
+- [ ] Embedding
+- [ ] Training
+- [ ] Validation
+- [ ] Save model
+
+---
+
+# Milestone 8 — Attack Classification
+
+## XGBoost
+
+- [ ] Prepare features
+- [ ] Train classifier
+- [ ] Validate
+- [ ] Save model
+
+---
+
+## Classes
+
+- [ ] Normal
+- [ ] Brute Force
+- [ ] Credential Stuffing
+- [ ] Impossible Travel
+- [ ] Device Spoofing
+- [ ] Lateral Movement
+- [ ] Low-and-Slow Exfiltration
+- [ ] Insider Drift
+
+---
+
+# Milestone 9 — Risk Scoring
+
+- [ ] Behavior score
+- [ ] Sequence score
+- [ ] Classifier confidence
+- [ ] Historical risk
+- [ ] Final risk score
+- [ ] Risk levels
+
+---
+
+# Milestone 10 — Explainability
+
+## SHAP
+
+- [ ] Feature importance
+- [ ] Summary values
+
+---
+
+## Human Explanation
+
+- [ ] Top reasons
+- [ ] Risk explanation
+- [ ] Recommended actions
+
+---
+
+# Milestone 11 — Training Pipeline
+
+- [ ] Feature engineering
+- [ ] Train Isolation Forest
+- [ ] Train Autoencoder
+- [ ] Train LSTM
+- [ ] Train XGBoost
+- [ ] Save models
+- [ ] Generate evaluation metrics
+
+---
+
+# Milestone 12 — Prediction Pipeline
+
+- [ ] Load models
+- [ ] Feature engineering
+- [ ] Behavior prediction
+- [ ] Sequence prediction
+- [ ] Classification
+- [ ] Risk scoring
+- [ ] SHAP explanation
+- [ ] JSON response
+
+---
+
+# Milestone 13 — FastAPI
+
+## APIs
+
+- [ ] POST /generate-data
+- [ ] POST /train
+- [ ] POST /predict
+- [ ] GET /events
+- [ ] GET /alerts
+- [ ] GET /statistics
+- [ ] GET /analytics
+- [ ] GET /users/{id}
+- [ ] POST /copilot
+
+---
+
+# Milestone 14 — Dashboard
+
+## Layout
+
+- [ ] Sidebar
+- [ ] Navbar
+- [ ] Responsive layout
+
+---
+
+## Dashboard
+
+- [ ] Metric cards
+- [ ] Alert table
+- [ ] Risk gauge
+- [ ] Timeline
+- [ ] Live events
+
+---
+
+# Milestone 15 — Analytics
+
+- [ ] Attack distribution
+- [ ] Risk distribution
+- [ ] Daily events
+- [ ] Monthly events
+- [ ] Department chart
+- [ ] Confusion matrix
+- [ ] ROC curve
+- [ ] PR curve
+- [ ] SHAP visualization
+
+---
+
+# Milestone 16 — AI Security Copilot
+
+- [ ] Chat interface
+- [ ] Backend endpoint
+- [ ] Prompt generation
+- [ ] Alert explanation
+- [ ] User explanation
+- [ ] Incident summary
+- [ ] Recommended actions
+
+---
+
+# Milestone 17 — Testing
+
+## Backend
+
+- [ ] API testing
+- [ ] Database testing
+- [ ] Model testing
+- [ ] Prediction testing
+
+---
+
+## Frontend
+
+- [ ] Dashboard
+- [ ] Charts
+- [ ] API integration
+- [ ] Error handling
+
+---
+
+# Milestone 18 — Documentation
+
+- [ ] README
+- [ ] Architecture diagram
+- [ ] Folder structure
+- [ ] API documentation
+- [ ] Installation guide
+- [ ] Usage guide
+
+---
+
+# Milestone 19 — Final Integration
+
+- [ ] Backend connected
+- [ ] Frontend connected
+- [ ] Database connected
+- [ ] Models connected
+- [ ] Copilot connected
+
+---
+
+# Milestone 20 — Final Evaluation
+
+## Deliverables
+
+- [ ] Synthetic enterprise data generation
+- [ ] Behavioral profiling
+- [ ] Attack simulation
+- [ ] Sequence-aware detection
+- [ ] Attack classification
+- [ ] Dynamic risk scoring
+- [ ] Explainable AI
+- [ ] FastAPI backend
+- [ ] React dashboard
+- [ ] AI Security Copilot
+
+---
+
+## Evaluation Criteria
+
+- [ ] High anomaly detection accuracy
+- [ ] Correct attack classification
+- [ ] Low false positives
+- [ ] Explainability
+- [ ] Cold-start handling
+- [ ] Concept drift handling
+- [ ] Complete report
+
+---
+
+# Final Pre-Demo Checklist
+
+## Backend
+
+- [ ] No API errors
+- [ ] All endpoints working
+- [ ] Models loading correctly
+- [ ] Database populated
+
+---
+
+## Frontend
+
+- [ ] Responsive UI
+- [ ] Charts render correctly
+- [ ] No dummy data
+- [ ] No console errors
+
+---
+
+## ML
+
+- [ ] Models trained
+- [ ] Predictions working
+- [ ] SHAP explanations generated
+- [ ] Risk scores accurate
+
+---
+
+## Demo
+
+- [ ] Generate synthetic data live
+- [ ] Train models successfully
+- [ ] Detect all attack types
+- [ ] Display dashboard updates
+- [ ] Explain an alert with AI Copilot
+- [ ] Show analytics and metrics
+
+---
+
+# Definition of Done (DoD)
+
+A milestone is considered complete only if:
+
+- [ ] Code is implemented.
+- [ ] Code is tested.
+- [ ] No runtime errors.
+- [ ] APIs return expected responses.
+- [ ] Frontend is connected to backend.
+- [ ] No hardcoded demo values.
+- [ ] Existing functionality is not broken.
+- [ ] Code follows PROJECT_RULES.md.
