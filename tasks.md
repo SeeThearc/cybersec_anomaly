@@ -16,7 +16,7 @@
 - [x] Milestone 7 - Sequence Learning
 - [x] Milestone 8 - Attack Classification
 - [x] Milestone 9 - Risk Scoring
-- [ ] Milestone 10 - Explainability
+- [x] Milestone 10 - Explainability
 - [ ] Milestone 11 - Model Training Pipeline
 - [ ] Milestone 12 - Prediction Pipeline
 - [ ] Milestone 13 - FastAPI APIs
@@ -335,16 +335,16 @@
 
 ## SHAP
 
-- [ ] Feature importance
-- [ ] Summary values
+- [x] Feature importance
+- [x] Summary values
 
 ---
 
 ## Human Explanation
 
-- [ ] Top reasons
-- [ ] Risk explanation
-- [ ] Recommended actions
+- [x] Top reasons
+- [x] Risk explanation
+- [x] Recommended actions
 
 ---
 
