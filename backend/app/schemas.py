@@ -125,3 +125,29 @@ class AlertRead(AlertBase):
 
     id: int
     created_at: datetime
+
+
+class CopilotRequest(BaseModel):
+    question: str
+
+
+class PredictionRequest(BaseModel):
+    event: dict
+
+
+class StatisticsResponse(BaseModel):
+    total_users: int
+    total_events: int
+    attack_counts: dict
+    average_risk: float
+    high_risk_users: int
+    critical_alerts: int
+
+
+class AnalyticsResponse(BaseModel):
+    attack_distribution: dict
+    department_distribution: dict
+    risk_trend: list
+    monthly_events: list
+    top_resources: dict
+    top_attack_types: dict

@@ -19,7 +19,7 @@
 - [x] Milestone 10 - Explainability
 - [x] Milestone 11 - Model Training Pipeline
 - [x] Milestone 12 - Prediction Pipeline
-- [ ] Milestone 13 - FastAPI APIs
+- [x] Milestone 13 - FastAPI APIs
 - [ ] Milestone 14 - React Dashboard
 - [ ] Milestone 15 - Analytics Dashboard
 - [ ] Milestone 16 - AI Security Copilot
@@ -383,19 +383,24 @@
 
 ---
 
-# Milestone 13 — FastAPI
+# Milestone 13 — FastAPI APIs
 
-## APIs
+## Routes
 
-- [ ] POST /generate-data
-- [ ] POST /train
-- [ ] POST /predict
-- [ ] GET /events
-- [ ] GET /alerts
-- [ ] GET /statistics
-- [ ] GET /analytics
-- [ ] GET /users/{id}
-- [ ] POST /copilot
+- [x] POST `/generate-data`
+- [x] POST `/train`
+- [x] POST `/predict`
+- [x] GET `/events`
+- [x] GET `/alerts`
+- [x] GET `/statistics`
+- [x] GET `/analytics`
+- [x] GET `/users/{id}`
+- [x] POST `/copilot`
+
+## Copilot
+
+- [x] Integrate AI Security Copilot service
+- [x] Fallback offline stub implemented
 
 ---
 
